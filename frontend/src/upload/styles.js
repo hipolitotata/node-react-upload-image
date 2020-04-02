@@ -12,13 +12,14 @@ const isDragReject = css`
 
 export const Upload = styled.div`
     width: 600px;
-    height: 400px;
+    height: auto;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     border-radius: 35px 5px;
     background-color: white;
+    padding: 0 0 30px;
 `;
 
 export const DivUpload = styled.div`
@@ -27,7 +28,7 @@ export const DivUpload = styled.div`
     font-weight: 800;
     border-radius: 3px;
     width: 80%;
-    height: 50%;
+    height: 100px;
     padding: 20px 0px;
     text-align: center;
     cursor: pointer;
@@ -40,4 +41,42 @@ export const DivUpload = styled.div`
     ${props => props.isDragReject && isDragReject}
     ${props => props.isDragActive && isDragActive}
 
+`;
+
+export const DivImage = styled.div`
+    width: 100%;
+    max-height: 900px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 0 0 50px;
+    margin: 5px 0 20px;
+`;
+
+export const ItemImage = styled.div`
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+    padding: 0 0 0 15px;
+    margin: 20px 0px;
+    img.img{
+        width: 35px;
+        height: 30px;
+        border-radius:3px;
+    }
+`;
+
+export const InfoImage = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 10px;
+`;
+
+export const NameImage = styled.p`
+    font-size: 14px;
+    color: #636363;
+`;
+
+export const SizeImage = styled.p`
+    font-size: 12px;
+    color: #adadad
 `;
