@@ -6,7 +6,7 @@ const isDragActive = css`
 `;
     
 const isDragReject = css`
-    border: 4px dashed #a31f35;
+    border: 4px dashed #323232;
     color: #a31f35;
 `;
 

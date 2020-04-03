@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Dropzone from 'react-dropzone'
 
 import {
@@ -56,11 +56,14 @@ export default function UploadPage() {
     return (
         <Upload>
             <DivImage>
-
                 {
                     files.map((file, key) => (
                         <ItemImage>
-                            <img className="img" src={file.preview} />
+                            <img
+                                accepted="image/*"
+                                alt="imgUpload"
+                                className="img"
+                                src={file.preview} />
                             <InfoImage>
                                 <NameImage>{file.name || ''}</NameImage>
                                 <SizeImage>{file.size / 1000} MB
@@ -72,7 +75,7 @@ export default function UploadPage() {
                 }
             </DivImage>
 
-            <Dropzone onDrop={acceptedFiles => changeImage(acceptedFiles)}>
+            <Dropzone accept="image/*" onDrop={acceptedFiles => changeImage(acceptedFiles)}>
                 {({ getRootProps, getInputProps, isDragActive, isDragReject }) => {
                     return (
                         <DivUpload
@@ -87,7 +90,6 @@ export default function UploadPage() {
                     )
                 }}
             </Dropzone>
-
         </Upload>
     );
 }

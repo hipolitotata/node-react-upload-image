@@ -3,33 +3,23 @@ const path = require('path');
 const cors = require('cors');
 const app = express();
 
-const upload = require('./config/multer');
+// routes
+const authRoutes = require('./routes/auth');
+const postsRoutes = require('./routes/posts');
 
 if (process.env.NODE_ENV !== 'production') {
     console.log('dev server is running');
-    require('dotenv').config()
+    require('dotenv').config();
 }
 
 app.use(cors());
 app.use(express.json());
-
 app.use(
     "/files",
     express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
 );
 
-app.get('/', (req, res) => {
-    res.send({ message: 'Initial route' });
-});
-
-app.post('/posts', upload.single('file'), (req, res) => {
-    const { filename } = req.file;
-    res.status(200).send({
-        message: 'Uploaded with sucess',
-        data: {
-            url: `${process.env.APP_URL}/files/${filename}`
-        }
-    });
-});
+app.use('/posts', postsRoutes);
+app.use('/auth', authRoutes);
 
 app.listen(8000);
