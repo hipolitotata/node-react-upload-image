@@ -5,11 +5,7 @@ mongoose
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true
-    },
-        function (err) {
-            console.log(err)
-        }
-    );
+    });
 
 if (!mongoose) {
     console.log('database is not connected')
