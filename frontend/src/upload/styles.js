@@ -58,9 +58,10 @@ export const ItemImage = styled.div`
     flex-direction: row;
     padding: 0 0 0 15px;
     margin: 20px 0px;
+
     img.img{
-        width: 35px;
-        height: 30px;
+        width: 45px;
+        height: 40px;
         border-radius:3px;
     }
 `;
@@ -78,5 +79,12 @@ export const NameImage = styled.p`
 
 export const SizeImage = styled.p`
     font-size: 12px;
-    color: #adadad
+    color: #adadad;
+    margin-top: 7px;
+
+    span{
+        color: #851b1b;
+        margin-left: 5px;
+        cursor: pointer;
+    }
 `;

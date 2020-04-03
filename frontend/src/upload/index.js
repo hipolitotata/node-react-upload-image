@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone'
 
 import {
@@ -11,24 +11,46 @@ import {
     SizeImage
 } from './styles'
 
+import api from '../services/api';
+
 export default function UploadPage() {
 
     const [files, setFiles] = useState([]);
-    const [urls, setUrls] = useState([]);
+
+    function uploadImage(uploadedFile) {
+        const data = new FormData();
+
+        data.append("file", uploadedFile.file, uploadedFile.name);
+
+        api.post('/posts', data)
+            .then(response => {
+                console.log(response.data.data.url)
+            })
+            .catch(err => {
+                console.log(err, err.response)
+            })
+    };
 
     function changeImage(newFiles) {
-        console.log(newFiles)
-
-        let auxUrls = [...urls];
         let auxFiles = [...files];
 
         newFiles.forEach(file => {
-            auxUrls.push(URL.createObjectURL(file));
-            auxFiles.push(file);
+            auxFiles.push({
+                file,
+                name: file.name,
+                size: file.size,
+                preview: URL.createObjectURL(file),
+                url: null
+            });
         });
 
-        setUrls([...auxUrls]);
         setFiles([...auxFiles]);
+
+        auxFiles.forEach(uploadImage);
+    };
+
+    function removeImage(keyParam) {
+        setFiles(files.filter((files, key) => key !== keyParam));
     };
 
     return (
@@ -36,12 +58,14 @@ export default function UploadPage() {
             <DivImage>
 
                 {
-                    urls.map((url, key) => (
+                    files.map((file, key) => (
                         <ItemImage>
-                            <img className="img" src={url} />
+                            <img className="img" src={file.preview} />
                             <InfoImage>
-                                <NameImage>{files[key] && files[key].name || ''}</NameImage>
-                                <SizeImage>{files[key] && files[key].size / 1000} MB</SizeImage>
+                                <NameImage>{file.name || ''}</NameImage>
+                                <SizeImage>{file.size / 1000} MB
+                                <span onClick={() => removeImage(key)}>Excluir</span>
+                                </SizeImage>
                             </InfoImage>
                         </ItemImage>
                     ))

@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
     destination: path.resolve('tmp', 'uploads'),
     filename: (req, file, cb) => {
         let nameCrypto = crypto.randomBytes(16).toString('hex');
-        cb(null, `${nameCrypto}-${file.originalname}`);
+        cb(null, `${nameCrypto}-${file.originalname.replace(/\s/g, "")}`);
     }
 });
 
