@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose
-    .connect("mongodb://localhost:27017/postsUpload", {
-        user: "root",
-        pass: "1234",
+    .connect("mongodb://localhost/postsUpload", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true
