@@ -13,7 +13,7 @@ const isDragReject = css`
 export const Upload = styled.div`
     width: 600px;
     height: auto;
-    max-height: 90vh;
+    max-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone'
 
 import {
@@ -22,12 +22,30 @@ export default function UploadPage() {
 
     const history = useHistory();
 
+    useEffect(() => {
+        async function getFiles() {
+            try {
+                const response = await api.get('/posts/list');
+                console.log(response.data)
+                if (response.data) {
+                    setFiles([...response.data]);
+                }
+            }
+            catch (err) {
+                console.log(err, err.response);
+            }
+        };
+
+        getFiles();
+    }, [])
+
     function uploadImage(uploadedFile) {
+        if (uploadedFile._id) return;
         const data = new FormData();
 
         data.append("file", uploadedFile.file, uploadedFile.name);
 
-        api.post('/posts', data)
+        api.post('/posts/create', data)
             .then(response => {
                 console.log(response.data.data.url)
             })
@@ -54,8 +72,15 @@ export default function UploadPage() {
         auxFiles.forEach(uploadImage);
     };
 
-    function removeImage(keyParam) {
-        setFiles(files.filter((files, key) => key !== keyParam));
+    async function removeImage(keyParam) {
+        try {
+            let file = files[keyParam];
+            const response = await api.delete(`/posts/delete/${file._id}`);
+            console.log(response);
+            setFiles(files.filter((files, key) => key !== keyParam));
+        } catch(err){
+            console.log(err, err.response);
+        }
     };
 
     function logout() {
