@@ -65,8 +65,19 @@ async function register(req, res) {
     }
 }
 
-function successAuth(req, res) {
-    return res.status(200).send({ auth: true, message: 'Token validate' })
+async function successAuth(req, res) {
+    try {
+        const user = await User.findById(req.userId);
+        user.password = undefined;
+        return res.status(200).send({
+            auth: true,
+            message: 'Token validate',
+            user
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(500).send({ err })
+    }
 };
 
 module.exports = {
