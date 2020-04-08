@@ -5,10 +5,14 @@ async function login(req, res) {
     let { email, password } = req.body;
 
     try {
-        let newUser = await User.findOne({ email, password })
+        let newUser = await User.findOne({ email });
 
         if (!newUser) {
             return res.send({ message: 'User is not found' })
+        }
+
+        if (newUser.password !== password) {
+            return res.send({ message: 'Password is incorrect' })
         }
 
         const token = jwt.sign({ id: newUser.id }, process.env.SECRET, {

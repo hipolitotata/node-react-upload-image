@@ -22,4 +22,4 @@ app.use(
 app.use('/posts', postsRoutes);
 app.use('/auth', authRoutes);
 
-app.listen(8000);
+app.listen(8080);
