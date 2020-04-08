@@ -5,7 +5,8 @@ async function createPost(req, res) {
     let file = {
         name: req.file.originalname,
         size: req.file.size,
-        destination: `/files/${req.file.filename}`,
+        url: `/files/${req.file.filename}`,
+        preview: null,
         userId: req.userId
     };
 
@@ -14,7 +15,7 @@ async function createPost(req, res) {
     res.status(200).send({
         message: 'Uploaded with sucess',
         data: {
-            url: `${process.env.APP_URL}${file.destination}`
+            url: `${process.env.APP_URL}${file.url}`
         }
     });
 }
@@ -23,14 +24,32 @@ async function listPosts(req, res) {
     let files = await Post.find({ userId: req.userId });
 
     files.forEach(file => {
-        file.destination = `${process.env.APP_URL}${file.destination}`;
-    })
+        file.preview = `${process.env.APP_URL}${file.url}`;
+        file.url = `${process.env.APP_URL}${file.url}`;
+    });
 
-    res.status(200).send(files);
+    setTimeout(() => {
+        res.status(200).send(files);
+    }, 2000)
 
+};
+
+async function deletePost(req, res) {
+    try {
+        await Post.deleteOne({ _id: req.params.id });
+        res.status(200).send({
+            message: 'file deleted'
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({
+            message: err
+        });
+    }
 };
 
 module.exports = {
     createPost,
-    listPosts
+    listPosts,
+    deletePost
 };

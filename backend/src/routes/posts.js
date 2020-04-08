@@ -16,5 +16,11 @@ router.get('/list',
     postsController.listPosts
 );
 
+router.delete('/delete/:id',
+    verifyJWT,
+    postsController.deletePost
+);
+
+
 
 module.exports = router;

@@ -7,12 +7,16 @@ const PostSchema = mongoose.Schema({
     size: {
         type: Number
     },
-    destination: {
+    url: {
         type: String
     },
     date: {
         type: Date,
         default: Date.now()
+    },
+    preview: {
+        type: String,
+        default: null
     },
     userId: {
         type: String,
