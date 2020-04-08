@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Container,
     Title,
@@ -9,7 +9,38 @@ import {
     Button
 } from './styles';
 
-export default function login() {
+import { useHistory } from 'react-router-dom';
+import api from '../../services/api';
+
+export default function Login() {
+
+    const [user, setUser] = useState({});
+
+    const history = useHistory();
+
+    function setInput(target) {
+        let { value, name } = target;
+
+        setUser({
+            ...user,
+            [name]: value
+        });
+    };
+
+    async function onSubmit() {
+        if (!user.email) return alert("Preencha o campo de e-mail");
+        if (!user.password) return alert("Preencha o campo de senha");
+
+        try {
+            const response = await api.post('/auth/login', user);
+            console.log(response);
+            localStorage.setItem("x-access-token", response.data.token);
+            history.push('/upload');
+        } catch (err) {
+            console.log(err, err.response)
+        }
+    };
+
     return (
         <Container>
 
@@ -22,18 +53,24 @@ export default function login() {
             </Text>
 
             <Input>
-                <TextInput>Usuário</TextInput>
+                <TextInput>E-mail</TextInput>
                 <Field
-                    placeholder="Informe seu usuário" />
+                    onChange={(e) => setInput(e.target)}
+                    name="email"
+                    type="text"
+                    placeholder="Informe seu e-mail" />
             </Input>
 
             <Input>
                 <TextInput>Senha</TextInput>
                 <Field
+                    onChange={(e) => setInput(e.target)}
+                    name="password"
+                    type="password"
                     placeholder="Digite sua senha" />
             </Input>
 
-            <Button>
+            <Button onClick={onSubmit}>
                 Entrar
             </Button>
 

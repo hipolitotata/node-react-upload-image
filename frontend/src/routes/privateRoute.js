@@ -4,6 +4,8 @@ import {
     Redirect
 } from 'react-router-dom';
 
+import api from '../services/api';
+
 export default function PrivateRoute(props) {
 
     const [loaded, setLoaded] = useState(false);
@@ -11,17 +13,31 @@ export default function PrivateRoute(props) {
 
     useEffect(() => {
         async function checkAuth() {
-            setTimeout(() => {
+            try {
+                const response = await api.get('/auth/checkauth');
+                console.log(response);
+                setLogged(true);
+            } catch (err) {
+                console.log(err, err.response);
                 setLogged(false);
+            }
+            finally {
                 setLoaded(true);
-            }, 3000)
+            }
         }
 
         checkAuth()
     }, []);
 
-    return (
-        !loaded ? <> </> :
-            logged ? <Route {...props} /> : <Redirect to="/login" />
-    )
+    function RenderRoute() {
+        if (logged) {
+            if (props.login) {
+                return <Redirect to="/upload" />
+            }
+            return <Route {...props} />
+        }
+        return <Redirect to="/login" />
+    };
+
+    return !loaded ? <> </> : <RenderRoute />
 }
