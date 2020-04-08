@@ -27,8 +27,8 @@ async function login(req, res) {
         });
 
     } catch (err) {
-        console.log(err)
-        return res.send({ message: 'Error while create user' })
+        console.log(err);
+        return res.send({ message: 'Error while create user' });
     }
 }
 
@@ -60,8 +60,8 @@ async function register(req, res) {
         });
 
     } catch (err) {
-        console.log(err)
-        return res.send({ message: 'Error while create user' })
+        console.log(err);
+        return res.send({ message: 'Error while create user' });
     }
 }
 
