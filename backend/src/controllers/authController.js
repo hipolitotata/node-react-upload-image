@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 async function login(req, res) {
@@ -5,14 +6,18 @@ async function login(req, res) {
 
     try {
         let newUser = await User.findOne({ email, password })
+
         if (!newUser) {
             return res.send({ message: 'User is not found' })
         }
 
-        return res.send({
-            message: 'Login sucessfully',
-            token: '123456'
-        })
+        const token = jwt.sign({ id: newUser.id }, process.env.SECRET, {
+            expiresIn: 300 // expires in 5min
+        });
+
+        return res.status(200).send({
+            auth: true, token: token
+        });
 
     } catch (err) {
         console.log(err)
