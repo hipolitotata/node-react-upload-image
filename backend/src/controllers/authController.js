@@ -57,6 +57,12 @@ async function register(req, res) {
     }
 }
 
+function successAuth(req, res) {
+    return res.status(200).send({ auth: true, message: 'Token validate' })
+};
+
 module.exports = {
-    login, register
+    login,
+    register,
+    successAuth
 };
