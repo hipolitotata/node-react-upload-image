@@ -17,6 +17,7 @@ export default function PrivateRoute(props) {
                 await api.get('/auth/checkauth');
                 setLogged(true);
             } catch (err) {
+                console.log("ERR", err, err.response);
                 setLogged(false);
             }
             finally {
@@ -29,9 +30,9 @@ export default function PrivateRoute(props) {
 
     function RenderRoute() {
         if (logged) {
-            return <Route {...props} />
+            return <Redirect to="/upload" />
         }
-        return <Redirect to="/login" />
+        return <Route {...props} />
     };
 
     return !loaded ? <> </> : <RenderRoute />

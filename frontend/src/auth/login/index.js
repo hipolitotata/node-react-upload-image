@@ -33,7 +33,6 @@ export default function Login() {
 
         try {
             const response = await api.post('/auth/login', user);
-            console.log(response);
             localStorage.setItem("x-access-token", response.data.token);
             history.push('/upload');
         } catch (err) {

@@ -88,3 +88,28 @@ export const SizeImage = styled.p`
         cursor: pointer;
     }
 `;
+
+export const LogoutButton = styled.button`
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bolder;
+    background-color: #323232;
+    border: 2px solid #323232;
+    cursor: pointer;
+
+    &:hover{
+        border: 2px solid #fff;
+        background: transparent;
+        transition: .3s;
+    }
+`;

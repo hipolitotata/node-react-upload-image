@@ -8,14 +8,19 @@ import {
     ItemImage,
     InfoImage,
     NameImage,
-    SizeImage
+    SizeImage,
+    LogoutButton
 } from './styles'
 
 import api from '../services/api';
 
+import { useHistory } from 'react-router-dom';
+
 export default function UploadPage() {
 
     const [files, setFiles] = useState([]);
+
+    const history = useHistory();
 
     function uploadImage(uploadedFile) {
         const data = new FormData();
@@ -53,8 +58,16 @@ export default function UploadPage() {
         setFiles(files.filter((files, key) => key !== keyParam));
     };
 
+    function logout() {
+        localStorage.removeItem("x-access-token");
+        history.push('/login');
+    };
+
     return (
         <Upload>
+
+            <LogoutButton onClick={logout}>Sair</LogoutButton>
+
             <DivImage>
                 {
                     files.map((file, key) => (
