@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Upload from './upload'
+import Routes from './routes'
 import { GlobalStyles } from './global-styles';
 
 export default function App() {
   return (
     <>
-      <Upload />
+      <Routes />
       <GlobalStyles />
     </>
   );
