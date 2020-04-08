@@ -19,7 +19,7 @@ async function login(req, res) {
         });
 
         const token = jwt.sign({ id: user.id }, process.env.SECRET, {
-            expiresIn: 300 // expires in 5min
+            expiresIn: 300000 // expires in 5min
         });
 
         return res.status(200).send({
