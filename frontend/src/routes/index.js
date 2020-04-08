@@ -7,8 +7,8 @@ import { Switch } from 'react-router-dom';
 import Login from '../auth/login';
 import Upload from '../upload';
 
-import AuthRoute from './authRoute';
-import PrivateRoute from './privateRoute';
+import AuthRoute from './auth-route';
+import PrivateRoute from './private-route';
 
 export default function RoutesPage() {
     return (

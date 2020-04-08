@@ -17,7 +17,6 @@ export default function PrivateRoute(props) {
                 await api.get('/auth/checkauth');
                 setLogged(true);
             } catch (err) {
-                console.log("ERR", err, err.response);
                 setLogged(false);
             }
             finally {
