@@ -3,10 +3,10 @@ const router = require('express').Router();
 const verifyJWT = require('../config/token');
 const authController = require('../controllers/authController');
 
-const { validatorsLogin, valitationLogin } = require('../validators/login');
+const { checksLogin, valitationLogin } = require('../validators/login');
 
 router.post('/login',
-    validatorsLogin,
+    checksLogin,
     valitationLogin,
     authController.login);
 

@@ -1,8 +1,8 @@
 const { validationResult, check } = require('express-validator');
 
-const validatorsLogin = [
+const checksLogin = [
     check('email').isEmail().withMessage('email is not valid'),
-    check('password').isLength({ min: 8 }).withMessage('must be at least 5 chars long')
+    check('password').isLength({ min: 8 }).withMessage('must be at least 8 chars long')
 ];
 
 function valitationLogin(req, res, next) {
@@ -13,4 +13,4 @@ function valitationLogin(req, res, next) {
     next();
 };
 
-module.exports = { validatorsLogin, valitationLogin };
+module.exports = { checksLogin, valitationLogin };
