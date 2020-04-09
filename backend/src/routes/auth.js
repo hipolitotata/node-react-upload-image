@@ -3,7 +3,13 @@ const router = require('express').Router();
 const verifyJWT = require('../config/token');
 const authController = require('../controllers/authController');
 
-router.post('/login', authController.login);
+const { validatorsLogin, valitationLogin } = require('../validators/login');
+
+router.post('/login',
+    validatorsLogin,
+    valitationLogin,
+    authController.login);
+
 router.post('/register', authController.register);
 router.get('/checkauth', verifyJWT, authController.successAuth);
 
