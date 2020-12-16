@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const upload = require('../config/multer');
 
-const postsController = require('../controllers/postsController');
+const postsController = require('../controllers/posts.controller');
 
 const verifyJWT = require('../config/token');
 

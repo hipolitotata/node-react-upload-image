@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const verifyJWT = require('../config/token');
-const authController = require('../controllers/authController');
+const authController = require('../controllers/auth.controller');
 
 const { checksLogin, valitationLogin } = require('../validators/login');
 
